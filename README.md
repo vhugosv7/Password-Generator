@@ -35,7 +35,7 @@ Follow the steps below to set up and run this project locally.
 
 4. Open your browser and navigate to http://127.0.0.1:5000/ to interact with the application.
 
-
+<br><br><br><br>
 ## Password Generator interface
 
 1. **_Main page (Default user view)_**

@@ -50,6 +50,8 @@ while True:
             print("Minimun number of characters is 4")
             break
         else:
+            print('''Write your selection in the next format to avoid errors:
+                  ->  number,number,number ''')
             user = input('''
             1.- Lower case.
             2.- Upper case.

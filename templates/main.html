@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename='favicon.ico') }}" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}">
+    <!--Stylesheet to use flaticon icons-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title>Password Generator</title>
+</head>
+<body>
+    <div class="align-main-container">
+        <div class="page-title">
+            <h1 class="">Password generator</h1>
+        </div>
+    <div class="container">
+        <div class="pwd-image">
+            <img src="{{url_for('static', filename='pwd-image-background.svg') }}" alt="" srcset="">
+            {% if store%}
+            <h5>Characters containing:</h5>
+            {% endif %}
+            <section class="pwd-characters">
+                {% for item in store %}
+                <label > &#x2705; {{item}} </label><br>
+              {% endfor %}
+            </section>
+           
+        </div>
+        <div class="pwd-data">
+            <form action="" method="post">
+                <div class="items">
+                    <label for="ops">Which type of value do you want in your password?:</label>
+                    <select name="price" id="mySelect"  multiple onChange="updateInputValue()">
+                        <option value="1" selected>Lower case</option>
+                        <option value="2">Upper case</option>
+                        <option value="3">Numbers</option>
+                        <option value="4">Symbols</option>
+                      </select>
+                        <!--To get the user selection-->
+                        <p><input type="text" name="selected_pwd_type" id="selectedValue" readonly hidden ></p>
+                      <p class="directions">Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
+                    </div>
+                    <label for="length" class="directions">Password length (4-64 characters)</label><br><br>
+                    <div class="pwd-display">
+                        <input type="number" name="length" id="number_pwd" placeholder="Length" min="4" max="64" value="{{pwd_num}}" required class="input-style">
+                        <input type="submit" class="pwd-button input-style" value = "Generate password"  onclick="window.location.href='{{ url_for('pwd_main') }}';" >
+                    </div>
+            </form>
+            <br><br>
+            {% if user_pwd%}
+            <input type="text" placeholder="" value="{{user_pwd}}" id="pwd_copy" class="input-style" disabled >
+            <button type="button" title="Copy password" class="btn-copy" onclick="myFunction()"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+            {% endif %}
+
+            {% if pwd_length_str%}
+            <p class="directions">{{pwd_length_str}}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    </div>
+    
+    <script>
+        // Function to get the user selected value from dropdown list
+        function updateInputValue() {
+            
+            var selectElement = document.getElementById('mySelect');
+            var selectedOptions = Array.from(selectElement.selectedOptions);
+            var selectedValues = selectedOptions.map(option => option.value);
+            document.getElementById('selectedValue').value = selectedValues.join(', ');
+        }
+      
+          // Initialize the input value when the page is loaded
+          window.onload = function() {
+              updateInputValue();
+          };
+
+          function myFunction() {
+            // Get the text field
+            var copyText = document.getElementById("pwd_copy");
+            
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text try to use hover on CSS
+            //let myVariable = "Copied!";
+            //document.getElementById("output").innerHTML = myVariable;
+            const inputElement = document.getElementById("pwd_copy");
+            inputElement.value = '';
+            // Refresh the page by replacing the URL with itself
+            location.replace(location.href);
+  
+
+            }
+
+
+    </script>
+</body>
+</html>
